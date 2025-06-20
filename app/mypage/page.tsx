@@ -2,15 +2,17 @@
 
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Bell, Settings } from "lucide-react";
+import { Bell, Settings } from 'lucide-react';
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Header from "@/components/header";
 
-
 const MyPage = () => {
-  const { data: session } = useSession();
+  // 안전한 방식으로 변경
+  const sessionResult = useSession();
+  const session = sessionResult?.data;
+  const status = sessionResult?.status || "loading";
 
   const menuItems = [
     {
@@ -29,10 +31,18 @@ const MyPage = () => {
     },
   ];
 
-  if (!session) {
+  if (status === "loading") {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <p>로그인 정보 로딩 중...</p>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p>로그인이 필요합니다.</p>
       </div>
     );
   }
@@ -50,7 +60,7 @@ const MyPage = () => {
                 <AvatarFallback className="text-lg">{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <h1 className="text-2xl font-bold text-gray-900">{session?.user?.name || "[사용자]"}</h1>
+                <h1 className="text-2xl font-bold text-gray-900">{session?.user?.name || "[사용자]"}님</h1>
                 <p className="text-gray-600">{session?.user?.email || "이메일 없음"}</p>
               </div>
             </div>
@@ -60,13 +70,11 @@ const MyPage = () => {
         <div className="space-y-4">
           {menuItems.map((item, index) => (
             <Link key={index} href={item.href} className={`flex items-center p-4 rounded-lg shadow-sm ${item.color}`}>
-              <a className={`flex items-center p-4 rounded-lg shadow-sm ${item.color}`}>
-                <item.icon className="h-6 w-6 mr-3" /> 
-                <div>
-                  <h2 className="font-semibold">{item.title}</h2>
-                  <p className="text-sm text-gray-700">{item.description}</p>
-                </div>
-              </a>
+              <item.icon className="h-6 w-6 mr-3" /> 
+              <div>
+                <h2 className="font-semibold">{item.title}</h2>
+                <p className="text-sm text-gray-700">{item.description}</p>
+              </div>
             </Link>
           ))}
         </div>
