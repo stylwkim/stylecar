@@ -46,11 +46,11 @@ export default function WriteReviewPage() {
   const videoInputRef = useRef<HTMLInputElement>(null)
   const contentRef = useRef<HTMLTextAreaElement>(null)
 
-  // useState에 링크 관련 상태 추가
+  // useState에 링크 관련 상태 추가 (selectedImageForLink 제거)
   const [showLinkModal, setShowLinkModal] = useState(false)
   const [linkText, setLinkText] = useState("")
   const [linkUrl, setLinkUrl] = useState("")
-  const [selectedImageForLink, setSelectedImageForLink] = useState<number | null>(null)
+  // const [selectedImageForLink, setSelectedImageForLink] = useState<number | null>(null) // 이 상태는 제거됨
 
   // 텍스트 포맷팅 함수들
   const formatText = (format: string) => {
@@ -70,6 +70,7 @@ export default function WriteReviewPage() {
         formattedText = `*${selectedText}*`
         break
       case "underline":
+        // 밑줄은 마크다운 표준이 아니므로 HTML 태그 사용
         formattedText = `<u>${selectedText}</u>`
         break
       default:
@@ -118,11 +119,14 @@ export default function WriteReviewPage() {
     // 선택된 텍스트가 있으면 그것을 링크 텍스트로 사용
     if (selectedText) {
       setLinkText(selectedText)
+    } else {
+      setLinkText(""); // 선택된 텍스트 없으면 초기화
     }
+    setLinkUrl(""); // URL도 항상 초기화
     setShowLinkModal(true)
   }
 
-  // 링크 적용 함수 추가
+  // 링크 적용 함수 (applyImageLink 로직 제거)
   const applyLink = () => {
     if (!linkText.trim() || !linkUrl.trim()) {
       alert("링크 텍스트와 URL을 모두 입력해주세요.")
@@ -137,6 +141,8 @@ export default function WriteReviewPage() {
 
     // 마크다운 링크 형식으로 삽입
     const linkMarkdown = `[${linkText}](${linkUrl})`
+    // 선택된 텍스트가 있었다면, 그 텍스트를 대체
+    // 선택된 텍스트가 없었다면, 커서 위치에 삽입
     const newContent = content.substring(0, start) + linkMarkdown + content.substring(end)
     setContent(newContent)
 
@@ -146,33 +152,33 @@ export default function WriteReviewPage() {
     setLinkUrl("")
   }
 
-  // 이미지에 링크 추가 함수
-  const addImageLink = (imageIndex: number) => {
-    setSelectedImageForLink(imageIndex)
-    setShowLinkModal(true)
-  }
+  // 이미지에 링크 추가 함수 (제거됨)
+  // const addImageLink = (imageIndex: number) => {
+  //   setSelectedImageForLink(imageIndex)
+  //   setShowLinkModal(true)
+  // }
 
-  // 이미지 링크 적용 함수
-  const applyImageLink = () => {
-    if (!linkUrl.trim()) {
-      alert("링크 URL을 입력해주세요.")
-      return
-    }
-
-    if (selectedImageForLink !== null) {
-      const imageFile = images[selectedImageForLink]
-      const imageUrl = URL.createObjectURL(imageFile)
-
-      // 클릭 가능한 이미지 링크 마크다운
-      const imageLinkMarkdown = `\n[![${imageFile.name}](${imageUrl})](${linkUrl})\n`
-      setContent((prev) => prev + imageLinkMarkdown)
-    }
-
-    // 모달 닫기 및 상태 초기화
-    setShowLinkModal(false)
-    setLinkUrl("")
-    setSelectedImageForLink(null)
-  }
+  // 이미지 링크 적용 함수 (제거됨)
+  // const applyImageLink = () => {
+  //   if (!linkUrl.trim()) {
+  //     alert("링크 URL을 입력해주세요.")
+  //     return
+  //   }
+  //
+  //   if (selectedImageForLink !== null) {
+  //     const imageFile = images[selectedImageForLink]
+  //     const imageUrl = URL.createObjectURL(imageFile)
+  //
+  //     // 클릭 가능한 이미지 링크 마크다운
+  //     const imageLinkMarkdown = `\n[![${imageFile.name}](${imageUrl})](${linkUrl})\n`
+  //     setContent((prev) => prev + imageLinkMarkdown)
+  //   }
+  //
+  //   // 모달 닫기 및 상태 초기화
+  //   setShowLinkModal(false)
+  //   setLinkUrl("")
+  //   setSelectedImageForLink(null)
+  // }
 
   // 이미지 업로드
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,17 +222,20 @@ export default function WriteReviewPage() {
   // 미리보기 렌더링
   const renderPreview = () => {
     return content
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // **굵게**
+      .replace(/\*(.*?)\*/g, "<em>$1</em>") // *기울임*
+      .replace(/<u>(.*?)<\/u>/g, "<u>$1</u>") // <u>밑줄</u> (HTML 태그는 그대로 유지)
       .replace(
-        /\[([^\]]+)\]$$([^)]+)$$/g,
+        /\[([^\]]+)\]\(([^)]+)\)/g, // 올바른 마크다운 링크 정규표현식
         '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">$1</a>',
       )
       .replace(
-        /\[![([^\]]+)\]$$([^)]+)$$\]$$([^)]+)$$/g,
-        '<a href="$3" target="_blank" rel="noopener noreferrer"><img src="$2" alt="$1" class="max-w-full rounded" /></a>',
+        /!\[([^\]]*)\]\(([^)]+)\)/g, // 올바른 마크다운 이미지 정규표현식
+        '<img src="$2" alt="$1" class="max-w-full rounded" />',
       )
-      .replace(/\n/g, "<br>")
+      .replace(/<div style="text-align: (left|center|right)">(.*?)<\/div>/g, '<div style="text-align: $1">$2</div>') // 정렬
+      .replace(/<video controls width="100%"><source src="(.*?)" type="(.*?)"><\/video>/g, '<video controls width="100%"><source src="$1" type="$2"></video>') // 동영상 (HTML 태그는 그대로 유지)
+      .replace(/\n/g, "<br>") // 줄바꿈
   }
 
   // 저장
@@ -261,7 +270,10 @@ export default function WriteReviewPage() {
           name="description"
           content="스타일카 자동차용품 실제구매후기를 작성해보세요. 네이버 블로그 스타일 에디터로 사진, 동영상과 함께 생생한 후기를 공유하고 적립금도 받으세요!"
         />
-        <meta name="robots" content="noindex, nofollow" />
+        {/* SEO 최적화를 위해 noindex, nofollow는 제거하는 것이 좋습니다.
+            사용자가 작성한 후기 페이지가 검색 엔진에 노출되어야 의미가 있습니다.
+            <meta name="robots" content="noindex, nofollow" />
+        */}
       </head>
 
       <div className="min-h-screen bg-gray-50">
@@ -461,13 +473,14 @@ export default function WriteReviewPage() {
                         >
                           <X className="w-3 h-3" />
                         </button>
-                        <button
+                        {/* 이미지에 링크 추가 버튼 제거됨 */}
+                        {/* <button
                           onClick={() => addImageLink(index)}
                           className="absolute bottom-1 right-1 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                           title="이미지에 링크 추가"
                         >
                           <LinkIcon className="w-3 h-3" />
-                        </button>
+                        </button> */}
                       </div>
                     ))}
                     {videos.map((video, index) => (
@@ -531,19 +544,19 @@ export default function WriteReviewPage() {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                   <div className="bg-white rounded-lg p-6 w-96 max-w-[90vw]">
                     <h3 className="text-lg font-semibold mb-4">
-                      {selectedImageForLink !== null ? "이미지에 링크 추가" : "링크 삽입"}
+                      {/* selectedImageForLink 조건 제거 */}
+                      링크 삽입
                     </h3>
 
-                    {selectedImageForLink === null && (
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">링크 텍스트</label>
-                        <Input
-                          value={linkText}
-                          onChange={(e) => setLinkText(e.target.value)}
-                          placeholder="링크로 표시될 텍스트를 입력하세요"
-                        />
-                      </div>
-                    )}
+                    {/* selectedImageForLink 조건 제거 */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">링크 텍스트</label>
+                      <Input
+                        value={linkText}
+                        onChange={(e) => setLinkText(e.target.value)}
+                        placeholder="링크로 표시될 텍스트를 입력하세요"
+                      />
+                    </div>
 
                     <div className="mb-4">
                       <label className="block text-sm font-medium text-gray-700 mb-2">링크 URL</label>
@@ -565,13 +578,14 @@ export default function WriteReviewPage() {
                           setShowLinkModal(false)
                           setLinkText("")
                           setLinkUrl("")
-                          setSelectedImageForLink(null)
+                          // setSelectedImageForLink(null) // 이 상태 초기화도 제거
                         }}
                       >
                         취소
                       </Button>
                       <Button
-                        onClick={selectedImageForLink !== null ? applyImageLink : applyLink}
+                        // onClick={selectedImageForLink !== null ? applyImageLink : applyLink} // 조건 제거
+                        onClick={applyLink}
                         className="bg-blue-600 hover:bg-blue-700"
                       >
                         적용
