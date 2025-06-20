@@ -79,7 +79,6 @@ export default function MyPage() {
       href: "/mypage/settings",
       color: "bg-gray-100 text-gray-600",
     },
-  ]
 
   return (
     <div className="min-h-screen bg-gray-50">
