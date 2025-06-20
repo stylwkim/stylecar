@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스타일카 - 프리미엄 자동차용품 전문몰</title>
+    <meta name="description" content="카매트, 세차용품, 차량용 액세서리 등 프리미엄 자동차용품을 합리적인 가격에 만나보세요. 무료배송, 1년 A/S 보장.">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* 헤더 */
+        .header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 1rem 0; position: sticky; top: 0; z-index: 50; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #2563eb; text-decoration: none; }
+        .nav { display: flex; gap: 2rem; }
+        .nav a { text-decoration: none; color: #374151; font-weight: 500; transition: color 0.2s; }
+        .nav a:hover { color: #2563eb; }
+        
+        /* 히어로 섹션 */
+        .hero { 
+            height: 500px; 
+            background: linear-gradient(135deg, #03C75A 0%, #02B351 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white; 
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+        .hero-content { position: relative; z-index: 10; max-width: 800px; padding: 0 2rem; }
+        .hero h1 { font-size: 3rem; font-weight: bold; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9; }
+        .hero-btn { 
+            background: #f97316; 
+            color: white; 
+            padding: 1rem 2rem; 
+            border: none; 
+            border-radius: 0.5rem; 
+            font-size: 1.125rem; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .hero-btn:hover { background: #ea580c; }
+        
+        /* 카테고리 섹션 */
+        .categories-section { padding: 3rem 0; background: #f9fafb; }
+        .section-title { font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 2rem; color: #111827; }
+        .categories-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: 1rem; 
+            margin-top: 2rem; 
+        }
+        .category-card { 
+            background: #fff; 
+            border: 1px solid #e5e7eb; 
+            border-radius: 0.5rem; 
+            padding: 1.5rem; 
+            text-align: center; 
+            text-decoration: none; 
+            color: inherit;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .category-card:hover { 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            transform: translateY(-2px);
+        }
+        .category-icon { 
+            width: 4rem; 
+            height: 4rem; 
+            margin: 0 auto 1rem; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .category-card:hover .category-icon { transform: scale(1.1); }
+        .category-name { font-weight: 600; margin-bottom: 0.5rem; font-size: 1rem; }
+        .category-count { font-size: 0.875rem; color: #6b7280; }
+        
+        /* 푸터 */
+        .footer { background: #1f2937; color: #d1d5db; padding: 3rem 0; margin-top: 4rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .footer-section h3 { margin-bottom: 1rem; color: #fff; }
+        .footer-section a { color: #d1d5db; text-decoration: none; display: block; margin-bottom: 0.5rem; transition: color 0.2s; }
+        .footer-section a:hover { color: #fff; }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">스타일카</a>
+                <nav class="nav">
+                    <a href="/">홈</a>
+                    <a href="/categories-static.html">카테고리</a>
+                    <a href="/sale">세일</a>
+                    <a href="/support">고객지원</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>프리미엄 카매트 한정 특가</h1>
+            <p>최대 30% 할인 + 무료배송</p>
+            <a href="/categories-static.html" class="hero-btn">지금 구매하기</a>
+        </div>
+    </section>
+
+    <!-- 카테고리별 쇼핑 -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">카테고리별 쇼핑</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="location.href='/categories-static.html'">
+                    <div class="category-icon" style="background: #f3f4f6; color: #6b7280;">📋</div>
+                    <div class="category-name">전체</div>
+                    <div class="category-count">156개</div>
+                </div>
+                <div class="category-card" onclick="location.href='/categories-carmat.html'">
+                    <div class="category-icon" style="background: #dbeafe; color: #2563eb;">🚗</div>
+                    <div class="category-name">카매트</div>
+                    <div class="category-count">45개</div>
+                </div>
+                <div class="category-card" onclick="location.href='/categories-cleaning.html'">
+                    <div class="category-icon" style="background: #cffafe; color: #0891b2;">💧</div>
+                    <div class="category-name">세차용품</div>
+                    <div class="category-count">32개</div>
+                </div>
+                <div class="category-card" onclick="location.href='/categories-fragrance.html'">
+                    <div class="category-icon" style="background: #f3e8ff; color: #9333ea;">✨</div>
+                    <div class="category-name">방향제</div>
+                    <div class="category-count">28개</div>
+                </div>
+                <div class="category-card" onclick="location.href='/categories-protection.html'">
+                    <div class="category-icon" style="background: #dcfce7; color: #16a34a;">🛡️</div>
+                    <div class="category-name">보호필름</div>
+                    <div class="category-count">21개</div>
+                </div>
+                <div class="category-card" onclick="location.href='/categories-parking.html'">
+                    <div class="category-icon" style="background: #fed7aa; color: #ea580c;">🅿️</div>
+                    <div class="category-name">주차용품</div>
+                    <div class="category-count">18개</div>
+                </div>
+                <div class="category-card" onclick="location.href='/categories-accessories.html'">
+                    <div class="category-icon" style="background: #fce7f3; color: #ec4899;">⭐</div>
+                    <div class="category-name">액세서리</div>
+                    <div class="category-count">12개</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>스타일카</h3>
+                    <a href="/about">회사소개</a>
+                    <a href="/contact">연락처</a>
+                    <a href="/careers">채용정보</a>
+                </div>
+                <div class="footer-section">
+                    <h3>고객지원</h3>
+                    <a href="/support">고객센터</a>
+                    <a href="/faq">자주묻는질문</a>
+                    <a href="/returns">교환/반품</a>
+                </div>
+                <div class="footer-section">
+                    <h3>정책</h3>
+                    <a href="/privacy">개인정보처리방침</a>
+                    <a href="/terms">이용약관</a>
+                    <a href="/shipping">배송정책</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 최소한의 JavaScript만 사용
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('스타일카 메인 페이지 로드 완료');
+        });
+    </script>
+</body>
+</html>

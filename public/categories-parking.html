@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주차용품 - 스타일카</title>
+    <meta name="description" content="주차센서, 주차보조용품, 주차라인 등 다양한 주차용품을 만나보세요">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .product-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+        .skeleton {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <img src="/images/stylecar-logo.jpg" alt="스타일카" class="h-8 w-auto">
+                        <span class="ml-2 text-xl font-bold text-gray-900">스타일카</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/categories" class="text-gray-700 hover:text-blue-600">카테고리별 쇼핑</a>
+                    <a href="/sale" class="text-gray-700 hover:text-blue-600">할인상품</a>
+                    <a href="/events" class="text-gray-700 hover:text-blue-600">이벤트</a>
+                    <a href="/support" class="text-gray-700 hover:text-blue-600">고객지원</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="/" class="text-gray-700 hover:text-blue-600">홈</a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <span class="mx-2 text-gray-400">/</span>
+                        <a href="/categories" class="text-gray-700 hover:text-blue-600">카테고리</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <span class="mx-2 text-gray-400">/</span>
+                        <span class="text-gray-500">주차용품</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Category Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">주차용품</h1>
+            <p class="text-gray-600">주차센서, 주차보조용품, 주차라인 등 안전하고 편리한 주차를 위한 다양한 용품들을 만나보세요</p>
+        </div>
+
+        <!-- Filter and Sort -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <div class="flex flex-wrap gap-2">
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">전체</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">주차센서</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">주차보조용품</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">주차라인</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">주차블록</button>
+            </div>
+            <select class="px-4 py-2 border border-gray-300 rounded-lg text-sm">
+                <option>인기순</option>
+                <option>가격 낮은순</option>
+                <option>가격 높은순</option>
+                <option>최신순</option>
+            </select>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차센서 시스템" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">무선 주차센서 시스템</h3>
+                    <p class="text-sm text-gray-600 mb-2">후진 주차 보조 센서</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">89,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(124)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차가이드라인" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">LED 주차가이드라인</h3>
+                    <p class="text-sm text-gray-600 mb-2">차고 주차 보조 라인</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">35,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★☆</span>
+                            <span class="text-sm text-gray-500 ml-1">(89)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차보조거울" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">광각 주차보조거울</h3>
+                    <p class="text-sm text-gray-600 mb-2">사각지대 확인용 거울</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">25,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(156)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차블록" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">고무 주차블록</h3>
+                    <p class="text-sm text-gray-600 mb-2">차량 정지용 블록</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">18,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★☆</span>
+                            <span class="text-sm text-gray-500 ml-1">(67)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="후방카메라" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">HD 후방카메라</h3>
+                    <p class="text-sm text-gray-600 mb-2">야간 주차 보조 카메라</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">125,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(203)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차매트" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">차고 주차매트</h3>
+                    <p class="text-sm text-gray-600 mb-2">바닥 보호용 매트</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">45,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★☆</span>
+                            <span class="text-sm text-gray-500 ml-1">(78)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차폴" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">접이식 주차폴</h3>
+                    <p class="text-sm text-gray-600 mb-2">주차공간 확보용 폴</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">65,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★☆</span>
+                            <span class="text-sm text-gray-500 ml-1">(45)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card bg-white rounded-lg shadow-sm border hover:shadow-md">
+                <div class="aspect-square bg-gray-100 rounded-t-lg overflow-hidden">
+                    <img src="/placeholder.svg?height=300&width=300" 
+                         alt="주차등" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">LED 주차등</h3>
+                    <p class="text-sm text-gray-600 mb-2">야간 주차 보조등</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-blue-600">32,000원</span>
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">★★★★★</span>
+                            <span class="text-sm text-gray-500 ml-1">(92)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-12">
+            <nav class="flex items-center space-x-2">
+                <button class="px-3 py-2 text-gray-500 hover:text-gray-700">이전</button>
+                <button class="px-3 py-2 bg-blue-600 text-white rounded">1</button>
+                <button class="px-3 py-2 text-gray-700 hover:text-gray-900">2</button>
+                <button class="px-3 py-2 text-gray-700 hover:text-gray-900">3</button>
+                <button class="px-3 py-2 text-gray-500 hover:text-gray-700">다음</button>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">스타일카</h3>
+                    <p class="text-gray-400">자동차 용품 전문 쇼핑몰</p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">고객지원</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">고객센터</a></li>
+                        <li><a href="#" class="hover:text-white">배송안내</a></li>
+                        <li><a href="#" class="hover:text-white">반품/교환</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">회사정보</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">회사소개</a></li>
+                        <li><a href="#" class="hover:text-white">이용약관</a></li>
+                        <li><a href="#" class="hover:text-white">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">연락처</h4>
+                    <p class="text-gray-400">1588-0000</p>
+                    <p class="text-gray-400">평일 9:00-18:00</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 간단한 인터랙션 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            // 제품 카드 클릭 이벤트
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // 실제 구현에서는 제품 상세 페이지로 이동
+                    console.log('제품 클릭됨');
+                });
+            });
+
+            // 필터 버튼 클릭 이벤트
+            const filterButtons = document.querySelectorAll('button[class*="px-4 py-2"]');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 활성 상태 변경
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-blue-600', 'text-white');
+                        btn.classList.add('bg-gray-100', 'text-gray-700');
+                    });
+                    this.classList.remove('bg-gray-100', 'text-gray-700');
+                    this.classList.add('bg-blue-600', 'text-white');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
