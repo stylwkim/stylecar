@@ -6,7 +6,7 @@ import { Bell, Settings } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import Header from "@/components/Header";
+import Header from "@/components/header";
 
 
 const MyPage = () => {
@@ -45,7 +45,7 @@ const MyPage = () => {
         <Card className="mb-8">
           <CardContent className="p-6">
             <div className="flex items-center space-x-4">
-              <Avatar className="H-16 w-16">
+              <Avatar className="h-16 w-16">
                 <AvatarImage src={session?.user?.image || "/placeholder.svg?height=64&width=64"} alt="프로필" />
                 <AvatarFallback className="text-lg">{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
               </Avatar>
@@ -59,7 +59,7 @@ const MyPage = () => {
 
         <div className="space-y-4">
           {menuItems.map((item, index) => (
-            <Link key={index} href={item.href} legacyBehavior>
+            <Link key={index} href={item.href} className={`flex items-center p-4 rounded-lg shadow-sm ${item.color}`}>
               <a className={`flex items-center p-4 rounded-lg shadow-sm ${item.color}`}>
                 <item.icon className="h-6 w-6 mr-3" /> 
                 <div>
